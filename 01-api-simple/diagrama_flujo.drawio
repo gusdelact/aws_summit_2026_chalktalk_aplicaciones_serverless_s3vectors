@@ -1,0 +1,131 @@
+<mxfile host="Electron" agent="Kiro" version="24.0.0">
+  <diagram name="Flujo simple_s3_vectors_demo.py" id="flujo-s3-vectors-simple">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Flujo del script simple_s3_vectors_demo.py&#10;(Demo simple de la API Amazon S3 Vectors, sin CDK, sin Bedrock Knowledge Bases)" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="0" width="1200" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Left swimlane: script -->
+        <mxCell id="laneScript" value="Script Python (boto3) &#10;simple_s3_vectors_demo.py" style="swimlane;fontStyle=1;fontSize=13;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="50" width="480" height="1150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n1" value="main()&#10;Parsea argumentos CLI:&#10;--profile --region --bucket&#10;--indice --consulta --cleanup" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="50" width="400" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n2" value="boto3.Session(profile, region)&#10;Crea clientes:&#10;s3vectors  y  bedrock-runtime" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="150" width="400" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n3" value="crear_bucket_e_indice()&#10;1. create_vector_bucket(nombre_bucket)&#10;2. create_index(dimension=1024,&#10;   distanceMetric=&quot;cosine&quot;,&#10;   nonFilterableMetadataKeys=[&quot;texto&quot;])" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="240" width="400" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n4" value="time.sleep(2)&#10;(espera consistencia eventual del índice)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="360" width="400" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n5" value="ingestar_documentos()&#10;Para cada uno de los 8 DOCUMENTOS_EJEMPLO&#10;(bebida, electronica, musica, animal):" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="435" width="400" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n5b" value="generar_embedding(texto)&#10;→ construye vector float32[1024]&#10;   por documento" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="510" width="400" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n5c" value="s3vectors.put_vectors()&#10;Inserta los 8 vectores con&#10;key + data(float32) + metadata&#10;(categoria, texto)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="585" width="400" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n6" value="time.sleep(2)&#10;(espera consistencia eventual tras la ingesta)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="670" width="400" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n7" value="consultar(consulta=&quot;bebida caliente&quot;)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="745" width="400" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n7b" value="generar_embedding(consulta)&#10;→ vector float32[1024] de la consulta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="810" width="400" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n7c" value="s3vectors.query_vectors()&#10;topK=3, returnDistance=True,&#10;returnMetadata=True" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="880" width="400" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n7d" value="Imprime resultados ordenados por&#10;similitud (menor distancia primero):&#10;key, distancia, categoria, texto" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="955" width="400" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n8" value="¿--cleanup?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="laneScript">
+          <mxGeometry x="140" y="1030" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n9" value="limpiar()&#10;delete_index() +&#10;delete_vector_bucket()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="laneScript">
+          <mxGeometry x="260" y="1120" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n10" value="Imprime: recursos NO eliminados&#10;(bucket e índice quedan activos)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="laneScript">
+          <mxGeometry x="40" y="1120" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Right swimlane: AWS services -->
+        <mxCell id="laneAWS" value="Servicios AWS invocados" style="swimlane;fontStyle=1;fontSize=13;startSize=30;fillColor=#f8f9fa;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="620" y="50" width="440" height="1150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s1" value="Amazon Bedrock Runtime&#10;&#10;InvokeModel&#10;modelId: amazon.titan-embed-text-v2:0&#10;body: {inputText, dimensions=1024,&#10;normalize=true}&#10;→ devuelve &quot;embedding&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="laneAWS">
+          <mxGeometry x="40" y="470" width="360" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s2" value="Amazon S3 Vectors&#10;&#10;• create_vector_bucket&#10;• create_index (dim=1024, cosine)&#10;• put_vectors (8 vectores)&#10;• query_vectors (topK=3)&#10;• delete_index / delete_vector_bucket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="laneAWS">
+          <mxGeometry x="40" y="80" width="360" height="330" as="geometry" />
+        </mxCell>
+
+        <!-- Sequential flow edges (script) -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n1" target="n2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n2" target="n3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n3" target="n4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n4" target="n5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n5" target="n5b"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5loop" value="x8 documentos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="laneScript" source="n5b" target="n5"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="10" y="537" /><mxPoint x="10" y="462" /></Array></mxGeometry></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n5b" target="n5c"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n5c" target="n6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n6" target="n7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n7" target="n7b"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n7b" target="n7c"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n7c" target="n7d"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n7d" target="n8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e13" value="sí" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n8" target="n9"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e14" value="no" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="laneScript" source="n8" target="n10"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Cross edges: script -> AWS services -->
+        <mxCell id="c1" value="create_vector_bucket /&#10;create_index" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#6c8ebf;fontColor=#6c8ebf;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="n3" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="invoke_model&#10;(Titan Embed v2)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="n5b" target="s1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="put_vectors" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#6c8ebf;fontColor=#6c8ebf;exitX=1;exitY=0.5;entryX=0;entryY=0.55;" edge="1" parent="1" source="n5c" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" value="invoke_model&#10;(consulta)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;exitX=1;exitY=0.5;entryX=0;entryY=0.6;" edge="1" parent="1" source="n7b" target="s1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" value="query_vectors" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#6c8ebf;fontColor=#6c8ebf;exitX=1;exitY=0.5;entryX=0;entryY=0.8;" edge="1" parent="1" source="n7c" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" value="delete_index /&#10;delete_vector_bucket" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#b85450;fontColor=#b85450;exitX=1;exitY=0.5;entryX=0;entryY=0.95;" edge="1" parent="1" source="n9" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

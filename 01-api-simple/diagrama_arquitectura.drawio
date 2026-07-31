@@ -1,0 +1,126 @@
+<mxfile host="Electron" agent="Kiro" version="24.0.0">
+  <diagram name="Arquitectura - Demo S3 Vectors" id="arq-s3-vectors-simple">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Arquitectura - Demo simple de Amazon S3 Vectors (01-api-simple)" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="1260" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Local machine group -->
+        <mxCell id="localGroup" value="Máquina local / Terminal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#666666;verticalAlign=top;align=center;fontStyle=1;fontSize=12;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="260" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="userIcon" value="Desarrollador" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="80" y="110" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="scriptBox" value="simple_s3_vectors_demo.py&#10;(Python + boto3)&#10;&#10;Perfil AWS CLI (--profile)&#10;credenciales / permisos&#10;s3vectors:* , bedrock:InvokeModel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="195" width="220" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- AWS Cloud group -->
+        <mxCell id="awsCloud" value="AWS Cloud — región us-east-1" style="fillColor=none;strokeColor=#232F3E;dashed=0;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;fontStyle=1;fontSize=13;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;" vertex="1" parent="1">
+          <mxGeometry x="420" y="80" width="820" height="700" as="geometry" />
+        </mxCell>
+
+        <!-- IAM -->
+        <mxCell id="iamGroup" value="IAM" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#DD344C;verticalAlign=top;align=center;fontStyle=1;fontSize=11;fontColor=#DD344C;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="130" width="180" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iamIcon" value="Perfil / Rol IAM" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management_iam;" vertex="1" parent="1">
+          <mxGeometry x="510" y="150" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Bedrock -->
+        <mxCell id="bedrockGroup" value="Amazon Bedrock" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#01A88D;verticalAlign=top;align=center;fontStyle=1;fontSize=11;fontColor=#01A88D;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="130" width="480" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bedrockIcon" value="Bedrock Runtime" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#01A88D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock;" vertex="1" parent="1">
+          <mxGeometry x="740" y="160" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="titanBox" value="Modelo:&#10;amazon.titan-embed-text-v2:0&#10;&#10;InvokeModel(inputText, dimensions=1024,&#10;normalize=true) → embedding" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#01A88D;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="850" y="160" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- S3 Vectors -->
+        <mxCell id="s3Group" value="Amazon S3 Vectors" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#7AA116;verticalAlign=top;align=center;fontStyle=1;fontSize=11;fontColor=#7AA116;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="380" width="720" height="330" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s3Icon" value="Vector Bucket" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="500" y="420" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bucketBox" value="Vector Bucket&#10;(nombre único, ej. demo-s3-vectors-xxxxxxxx)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7AA116;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="600" y="425" width="280" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="indexBox" value="Vector Index: &quot;demo-index&quot;&#10;dimension=1024, distanceMetric=cosine&#10;metadataConfiguration:&#10;nonFilterableMetadataKeys=[&quot;texto&quot;]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7AA116;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="600" y="490" width="280" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vectorsBox" value="8 vectores (put_vectors)&#10;key + data(float32[1024]) +&#10;metadata(categoria, texto)&#10;&#10;Categorías: bebida, electronica,&#10;musica, animal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7AA116;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="920" y="425" width="230" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="queryBox" value="query_vectors(topK=3)&#10;returnDistance=true&#10;returnMetadata=true&#10;→ resultados ordenados por&#10;similitud (menor distancia)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7AA116;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="600" y="600" width="280" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cleanupBox" value="Opcional (--cleanup):&#10;delete_index +&#10;delete_vector_bucket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7AA116;dashed=1;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="920" y="600" width="230" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" value="1. AWS credenciales&#10;(perfil/rol)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#DD344C;fontColor=#DD344C;fontSize=10;" edge="1" parent="1" source="scriptBox" target="iamGroup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e2" value="2. InvokeModel&#10;(genera embeddings)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#01A88D;fontColor=#01A88D;fontSize=10;" edge="1" parent="1" source="scriptBox" target="bedrockIcon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="e3" value="3. create_vector_bucket /&#10;create_index / put_vectors /&#10;query_vectors / delete_*" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7AA116;fontColor=#7AA116;fontSize=10;" edge="1" parent="1" source="scriptBox" target="s3Icon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="e4" value="embedding float32[1024]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#666666;fontColor=#666666;fontSize=10;" edge="1" parent="1" source="titanBox" target="vectorsBox">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7AA116;" edge="1" parent="1" source="s3Icon" target="bucketBox">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7AA116;" edge="1" parent="1" source="bucketBox" target="indexBox">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7AA116;" edge="1" parent="1" source="indexBox" target="vectorsBox">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7AA116;" edge="1" parent="1" source="indexBox" target="queryBox">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7AA116;dashed=1;" edge="1" parent="1" source="queryBox" target="cleanupBox">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
